@@ -1,57 +1,45 @@
-﻿using static System.Reflection.Metadata.BlobBuilder;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace GitHubProject
 {
     internal class Program
     {
+        public static List<Game> games = new List<Game>();
         static void Main(string[] args)
         {
-            List<Game> games = new List<Game>();
-            games.Add(new Game("NOX", "action RPG", 2000));
-            games.Add(new Game("FoE", "strategy game", 2012));
+            Game.gameEntries();
 
             while (true)
             {
-                Console.WriteLine("Pasirinkite norima veiksma:");
-                Console.WriteLine("1 - perziureti zaidimus");
-                Console.WriteLine("2 - prideti zaidima");
-                Console.WriteLine("3 - redaguoti irasa");
-                Console.WriteLine("4 - istrinti zaidima");
-                Console.WriteLine("5 - iseiti");
-                Console.WriteLine("---------------------");
-                Console.WriteLine();
-
+                int id = 0;
+                Game.StartWork();
                 int input = Convert.ToInt32(Console.ReadLine());
                 switch (input)
                 {
                     case 1:
-                        foreach (var g in games)
-                        {
-                            Console.WriteLine($"Game name: {g.Title}, game type: {g.Type}, release year: {g.ReleaseYear}");
-                        }
+                        Game.GameList(games);
                         break;
                     case 2:
-                        Game game = new Game();
-                        Console.WriteLine("Iveskite zaidimo pavadinima");
-                        game.Title = Console.ReadLine();
-                        Console.WriteLine("Iveskite zaidimo tipa");
-                        game.Type = Console.ReadLine();
-                        Console.WriteLine("Iveskite zaidimo isleidimo metus");
-                        game.ReleaseYear = Convert.ToInt32(Console.ReadLine());
-                        games.Add(game);
+                        Game.AddNewGame(games);
                         break;
                     case 3:
-                        Console.WriteLine("3- redaguoti irasa");
+                        Game.EditRecord(games, id);
                         break;
                     case 4:
-                        Console.WriteLine("4 - istrinti zaidima");
+                        Game.DeleteGame(games, id);
                         break;
                     case 5:
-                        Environment.Exit(0);
+                        Game.Exit();
                         break;
-
+                    default:
+                        Console.WriteLine("Not a valid input, enter a number from menu list");
+                        break;
                 }
             }
+
         }
     }
 }
