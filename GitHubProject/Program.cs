@@ -31,19 +31,19 @@ namespace GitHubProject
                         Game.DeleteGame();
                         break;
                     case 5:
-                        Rent.AvailableGamesList(); // 
+                        Rent.AvailableGamesList();
                         break;
                     case 6:
-                        Rent.RentedGamesList();// 
+                        Rent.RentedGamesList();
                         break;
                     case 7:
-                        Rent.RentGame();// 
+                        Rent.RentGame();
                         break;
                     case 8:
-                        Rent.ReturnGame(); // veikia su klaidom
+                        Rent.ReturnGame();
                         break;
                     case 9:
-                        Rent.ShowGameRentHistory(); // problemos
+                        Rent.ShowGameRentHistory(); 
                         break;
                     case 10:
                         Rent.EditRentInfo();// 
@@ -75,7 +75,7 @@ namespace GitHubProject
             Console.WriteLine("6 - list of rented games"); ;
             Console.WriteLine("7 - rent game");
             Console.WriteLine("8 - return game");
-            Console.WriteLine("9 - show game's rent history");//not done
+            Console.WriteLine("9 - show game's rent history");
             Console.WriteLine("10 - edit rent info");
             Console.WriteLine("11 = sort games info");//not done
             Console.WriteLine("12 - exit Menu");

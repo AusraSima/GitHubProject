@@ -10,14 +10,17 @@ namespace GitHubProject
 {
     internal class Rent
     {
+        private int rentCount;
+
         private string customerName;
         private DateTime rentStart;
         private DateTime rentEnd;
 
-
         public Rent()
         {
+            rentCount = 0;
         }
+
         public Rent(string customerName, DateTime rentStart, DateTime rentEnd)
         {
             this.customerName = customerName;
@@ -42,6 +45,7 @@ namespace GitHubProject
         }
 
 
+
         public static void AvailableGamesList()
         {
             Console.WriteLine("List of available games: ");
@@ -50,7 +54,7 @@ namespace GitHubProject
 
             foreach (var game in Program.games)
             {
-                if (IsAvailableForRent())
+                if (IsAvailableForRent(game))
                 {
                     Game.PrintGameEntry(game);
                 }
@@ -65,7 +69,7 @@ namespace GitHubProject
 
             foreach (var game in Program.games)
             {
-                if (!IsAvailableForRent())
+                if (!IsAvailableForRent(game))
                 {
                     Game.PrintGameEntry(game);
                 }
@@ -85,7 +89,7 @@ namespace GitHubProject
             {
                 if (game.Id == wantedId)
                 {
-                    if (!IsAvailableForRent())
+                    if (!IsAvailableForRent(game))
                     {
                         Console.WriteLine($"The game {game.Id} is not available .");
                         break;
@@ -94,6 +98,8 @@ namespace GitHubProject
                     Rent renterData = new Rent();
                     renterData.customerName = Console.ReadLine();
                     renterData.rentStart = DateTime.Now;
+                    renterData.rentCount++;
+                    Console.WriteLine(renterData.rentCount);
                     game.Renting.Add(renterData);
 
                     Console.WriteLine($"Zaidimas {game.Id}, \"{game.Title}\", sekmingai isnuomuotas");
@@ -123,7 +129,6 @@ namespace GitHubProject
                         break;
                     }
                     game.Renting.Last().rentEnd = DateTime.Now;
-                    //game.Renting.Last().timeDifference = game.Renting.Last().rentEnd - game.Renting.Last().rentEnd;
                     Console.WriteLine($"Zaidimas \"{game.Title}\" sekmingai grazintas");
                     break;
                 }
@@ -181,6 +186,7 @@ namespace GitHubProject
             Console.WriteLine();
         }
 
+
         public static void ShowGameRentHistory()
         {
             Console.WriteLine("Enter ID of the game whose rent history you want to see: ");
@@ -189,24 +195,19 @@ namespace GitHubProject
             {
                 if (game.Id == id)
                 {
+                    Console.WriteLine("Rent history for game:");
                     foreach (var rent in game.Renting)
                     {
-                        Console.WriteLine(rent);
+                        Console.WriteLine($"Customer Name: {rent.CustomerName}, Rent Start: {rent.RentStart}, Rent End: {rent.RentEnd}");
                     }
                     break;
                 }
             }
         }
-        public static bool IsAvailableForRent()
+
+        public static bool IsAvailableForRent(Game game)
         {
-            foreach (var game in Program.games)
-            {
-                if ((game.Renting.Count > 0 && game.Renting.Last().RentEnd != DateTime.MinValue) || game.Renting.Count == 0)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return game.Renting.Count == 0 || game.Renting.Last().RentEnd != DateTime.MinValue;
         }
     }
 
