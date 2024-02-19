@@ -13,20 +13,19 @@ namespace GitHubProject
         private string customerName;
         private DateTime rentStart;
         private DateTime rentEnd;
-        private TimeSpan timeDifference;
 
 
         public Rent()
         {
         }
-        public Rent(string renterName, DateTime rentStart, DateTime rentEnd)
+        public Rent(string customerName, DateTime rentStart, DateTime rentEnd)
         {
             this.customerName = customerName;
             this.rentStart = rentStart;
             this.rentEnd = rentEnd;
 
         }
-        public string RenterName
+        public string CustomerName
         {
             get { return customerName; }
             set { customerName = value; }
@@ -74,7 +73,7 @@ namespace GitHubProject
             Console.WriteLine();
         }
 
-        public static void RentGame()// 
+        public static void RentGame()// sutvarkyt
         {
             Console.WriteLine("Enter a number of the game from the list: ");
             Rent.AvailableGamesList();
@@ -124,7 +123,7 @@ namespace GitHubProject
                         break;
                     }
                     game.Renting.Last().rentEnd = DateTime.Now;
-                    game.Renting.Last().timeDifference = game.Renting.Last().rentEnd - game.Renting.Last().rentEnd;
+                    //game.Renting.Last().timeDifference = game.Renting.Last().rentEnd - game.Renting.Last().rentEnd;
                     Console.WriteLine($"Zaidimas \"{game.Title}\" sekmingai grazintas");
                     break;
                 }
